@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -84,6 +86,10 @@ dependencies {
    // implementation ("androidx.navigation:navigation-compose:2.4.2")
     implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation("androidx.compose.material3:material3:1.1.1")
+
+
+
+
 
 
 }

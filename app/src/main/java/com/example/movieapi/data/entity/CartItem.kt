@@ -1,4 +1,4 @@
-package com.example.movieapi.data
+package com.example.movieapi.data.entity
 
 data class CartItem(val cartId: Int,
                     val name: String,

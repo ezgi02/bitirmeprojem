@@ -8,13 +8,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -27,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
-import com.example.movieapi.data.Movie
+import com.example.movieapi.data.entity.Movie
 import com.example.movieapi.viewmodel.MovieViewModel
 //tehlike
 import androidx.compose.material.TextField
@@ -228,7 +226,7 @@ fun MovieListScreen(navController: NavController, viewModel: MovieViewModel = vi
 }
 
 @Composable
-fun MovieItem(movie: Movie, navController: NavController,viewModel: MovieViewModel) {
+fun MovieItem(movie: Movie, navController: NavController, viewModel: MovieViewModel) {
     val isFavorite = viewModel.favorites.collectAsState().value.contains(movie)
     val userName=viewModel.userName.collectAsState().value
     val context = LocalContext.current // Context'i alın

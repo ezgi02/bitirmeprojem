@@ -3,9 +3,9 @@ package com.example.movieapi.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapi.data.CartItem
-import com.example.movieapi.data.Movie
-import com.example.movieapi.data.RetrofitInstance
+import com.example.movieapi.data.entity.CartItem
+import com.example.movieapi.data.entity.Movie
+import com.example.movieapi.retrofit.RetrofitInstance
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

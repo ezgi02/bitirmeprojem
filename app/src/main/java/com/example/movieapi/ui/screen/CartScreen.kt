@@ -1,6 +1,5 @@
 package com.example.movieapi.ui.screen
 
-import android.icu.text.CaseMap.Title
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -20,9 +19,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.movieapi.data.CartItem
+import com.example.movieapi.data.entity.CartItem
 import com.example.movieapi.ui.theme.TitleColor
-import com.example.movieapi.viewmodel.CartViewModel
 import com.example.movieapi.viewmodel.MovieViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

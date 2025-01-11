@@ -32,7 +32,7 @@ import com.example.movieapi.ui.theme.UnselectedIconColor
 import com.example.movieapi.ui.theme.UnselectedTextColor
 
 @Composable
-fun MovieApp() {
+fun MovieApp(viewModel: MovieViewModel) {
     val navController = rememberNavController()
     val sharedViewModel: MovieViewModel = viewModel()
 

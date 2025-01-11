@@ -1,5 +1,8 @@
-package com.example.movieapi.data
+package com.example.movieapi.retrofit
 
+import com.example.movieapi.data.entity.ApiResponse
+import com.example.movieapi.data.entity.MovieCartResponse
+import com.example.movieapi.data.entity.MovieResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -25,7 +28,7 @@ interface MovieApi {
         @Field("description") description: String,
         @Field("orderAmount") orderAmount: Int,
         @Field("userName") userName: String
-    ):ApiResponse//Ekleme işleminin sonucunu döner
+    ): ApiResponse//Ekleme işleminin sonucunu döner
 
     //Sepetteki filmleri getirme
     @FormUrlEncoded
@@ -40,6 +43,6 @@ interface MovieApi {
     suspend fun deleteMovieFromCart(
         @Field("cartId") cartId: Int,
         @Field("userName") userName: String
-    ):ApiResponse //Silme işleminin sonucunu döner
+    ): ApiResponse //Silme işleminin sonucunu döner
 
 }
