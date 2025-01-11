@@ -1,6 +1,8 @@
 package com.example.movieapi.ui.screen
 
+import android.icu.text.CaseMap.Title
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,28 +15,37 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.movieapi.data.CartItem
+import com.example.movieapi.ui.theme.TitleColor
 import com.example.movieapi.viewmodel.CartViewModel
+import com.example.movieapi.viewmodel.MovieViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartScreen(navController: NavController, cartViewModel: CartViewModel = viewModel()) {
+fun CartScreen(navController: NavController, viewModel: MovieViewModel = viewModel()) {
 
    // Log.d("CartScreen", "Cart Items in UI: $cartItems")
 
-
-    val userName = "ezgi" // Dinamik yapabilirsiniz
+    val context = LocalContext.current // Toast için context
+ //  val userName = "ezgi" // Dinamik yapabilirsiniz
+    val userName=viewModel.userName.collectAsState().value
 
     LaunchedEffect(Unit) {
-        cartViewModel.fetchCart(userName)
+        viewModel.fetchCart(userName)
+        Log.e("Username",userName)
     }
 
 
-    val cartItems = cartViewModel.cart.collectAsState().value
+    val cartItems = viewModel.cart.collectAsState().value
+    // Gruplandırılmış sepet (aynı ürünleri birleştirip miktar ekler)
+    val groupedCartItems = cartItems.groupBy { it.name }.map { (name, items) ->
+        items.first().copy(orderAmount = items.size)
+    }
 
     Log.d("CartScreen", "Cart Items in UI: $cartItems")
 
@@ -60,7 +71,7 @@ fun CartScreen(navController: NavController, cartViewModel: CartViewModel = view
                     .weight(1f)
                     .fillMaxWidth()
             ) {
-                if (cartItems.isNullOrEmpty()) {
+                if (groupedCartItems.isNullOrEmpty()) {
                     item {
                         Text(
                             text = "Sepetiniz boş.",
@@ -72,9 +83,12 @@ fun CartScreen(navController: NavController, cartViewModel: CartViewModel = view
                         )
                     }
                 } else {
-                    items(cartItems) { cartItem ->
+                    items(groupedCartItems) { cartItem ->
                         CartItemRow(cartItem = cartItem) {
-                            cartViewModel.removeFromCart(cartItem.cartId, "ezgi")
+                            viewModel.removeFromCart(cartItem.cartId, userName)
+                            // Toast ile ürün silindi mesajı
+                            Toast.makeText(context, "${cartItem.name} sepetten silindi", Toast.LENGTH_SHORT).show()
+
                         }
                     }
                 }
@@ -83,7 +97,7 @@ fun CartScreen(navController: NavController, cartViewModel: CartViewModel = view
             Divider(modifier = Modifier.padding(horizontal = 16.dp))
 
             // Toplam fiyat alanı
-            val totalPrice = cartItems.sumOf { it.price * it.orderAmount }
+            val totalPrice = groupedCartItems.sumOf { it.price * it.orderAmount }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -106,7 +120,10 @@ fun CartScreen(navController: NavController, cartViewModel: CartViewModel = view
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(16.dp),colors = ButtonDefaults.buttonColors(
+                    containerColor = TitleColor, // Arka plan rengi (Mor)
+                    contentColor = Color.White // Metin rengi (Beyaz)
+                )
             ) {
                 Text("Sepeti Onayla")
             }

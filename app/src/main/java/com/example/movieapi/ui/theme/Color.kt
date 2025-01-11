@@ -9,3 +9,12 @@ val Pink80 = Color(0xFFEFB8C8)
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
+val  TitleColor=Color(0xFF6200EA)
+val Backgroundcolor=Color(0xFFF2F2F2)
+
+//NavigationBar
+val SelectedIconColor = Color(0xFF3700B3) // Seçili ikon ve yazı rengi
+val UnselectedIconColor = Color(0xFF6200EE) // Seçili olmayan ikon rengi
+val SelectedTextColor = Color(0xFF3700B3) // Seçili yazı rengi
+val UnselectedTextColor = Color(0xFF6200EE) // Seçili olmayan yazı rengi
+val IndicatorColor = Color(0xFFEDE7F6) // Seçili öğe arka plan rengi

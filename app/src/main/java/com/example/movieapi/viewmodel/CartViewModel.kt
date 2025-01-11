@@ -15,7 +15,17 @@ class CartViewModel:ViewModel() {
     private val _cart = MutableStateFlow<List<CartItem>>(emptyList())
     val cart: StateFlow<List<CartItem>> = _cart
 
+  /*  private val _userName = MutableStateFlow<String?>(null) // Kullanıcı adı
 
+    fun setUserName(name: String) {
+        _userName.value = name
+    }*/
+  private val _userName = MutableStateFlow("")
+    val userName: StateFlow<String> = _userName
+
+    fun updateUserName(name: String) {
+        _userName.value = name
+    }
     //Sepetteki filmleri getir
     fun fetchCart(userName: String) {
         viewModelScope.launch {
@@ -24,6 +34,7 @@ class CartViewModel:ViewModel() {
                 val response = RetrofitInstance.api.getMovieCart(userName)
                 Log.d("CartViewModel", "API Response: $response")
                 _cart.value = response.movie_cart
+
             } catch (e: Exception) {
                 Log.e("CartViewModel", "Error fetching cart", e)
             }
