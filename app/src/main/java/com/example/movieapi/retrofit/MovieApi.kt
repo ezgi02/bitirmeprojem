@@ -8,6 +8,8 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 
+
+// Bu arayüz, sunucu üzerindeki film ve sepet işlemlerini gerçekleştirmek için gereken HTTP isteklerini tanımlar.
 interface MovieApi {
 
     //Tüm filmleri getir

@@ -27,7 +27,7 @@ import com.example.movieapi.R
 
 
 @Composable
-fun CategoryListScreen(navController: NavController, viewModel: MovieViewModel = viewModel()) {
+fun CategoryListScreen(navController: NavController, viewModel: MovieViewModel) {
     val movies = viewModel.movies.collectAsState(initial = emptyList()).value
 
     // Kategorileri gruplandır

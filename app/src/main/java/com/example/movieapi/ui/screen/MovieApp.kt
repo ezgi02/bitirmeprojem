@@ -58,7 +58,7 @@ fun MovieApp(viewModel: MovieViewModel) {
             ) {
                 composable("home") { MovieListScreen(navController, viewModel = sharedViewModel) } // Ana Sayfa
                 composable("favorites") { FavoritesScreen(navController, viewModel = sharedViewModel) } // Favoriler
-                composable("categories") { CategoryListScreen(navController = navController) }
+                composable("categories") { CategoryListScreen(navController = navController,viewModel = sharedViewModel) }
                 composable("categoryMovies/{category}") { backStackEntry ->
                     val category = backStackEntry.arguments?.getString("category")
                     if (category != null) {
@@ -68,10 +68,11 @@ fun MovieApp(viewModel: MovieViewModel) {
                     }
                 }
                 composable("cart") { CartScreen(navController,viewModel = sharedViewModel) } // Sepet
+
                 composable("movieDetail/{movieId}") { backStackEntry ->
                     val movieId = backStackEntry.arguments?.getString("movieId")?.toIntOrNull()
                     if (movieId != null) {
-                        MovieDetailScreen(movieId = movieId,viewModel = sharedViewModel)
+                        MovieDetailScreen(movieId = movieId,navController = navController,viewModel = sharedViewModel)
                     } else {
                         Text(text = "Invalid movie ID", modifier = Modifier.padding(16.dp))
                     }

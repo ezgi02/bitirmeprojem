@@ -83,7 +83,8 @@ fun CartScreen(navController: NavController, viewModel: MovieViewModel = viewMod
                 } else {
                     items(groupedCartItems) { cartItem ->
                         CartItemRow(cartItem = cartItem) {
-                            viewModel.removeFromCart(cartItem.cartId, userName)
+                            //viewModel.removeFromCart(cartItem.cartId, userName)
+                            viewModel.removeAllFromCart(cartItem.name, userName)
                             // Toast ile ürün silindi mesajı
                             Toast.makeText(context, "${cartItem.name} sepetten silindi", Toast.LENGTH_SHORT).show()
 

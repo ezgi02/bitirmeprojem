@@ -1,5 +1,6 @@
 package com.example.movieapi.data.entity
 
+//Sepetteki bir filmi temsil eden veri sınıf
 data class CartItem(val cartId: Int,
                     val name: String,
                     val image: String,

@@ -26,9 +26,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
 import  com.example.movieapi.R
 @Composable
-fun MovieDetailScreen(movieId: Int, viewModel: MovieViewModel = viewModel()) {
+fun MovieDetailScreen(movieId: Int, viewModel: MovieViewModel = viewModel(), navController: NavController,) {
     val movies = viewModel.movies.collectAsState(initial = emptyList())
     val context = LocalContext.current // Context'i alın
 

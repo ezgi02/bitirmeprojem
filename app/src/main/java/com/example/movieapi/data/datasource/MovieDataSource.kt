@@ -9,9 +9,12 @@ import com.example.movieapi.retrofit.MovieApi
 
 class MovieDataSource(private val api: MovieApi) {
 
+    //Tüm film listesini almak
     suspend fun getAllMovies(): MovieResponse {
         return api.getAllMovies()
     }
+
+    //Bir filmi kullanıcı sepetine eklemek.
 
     suspend fun insertMovieToCart(
         name: String,
@@ -29,11 +32,11 @@ class MovieDataSource(private val api: MovieApi) {
             name, image, price, category, rating, year, director, description, orderAmount, userName
         )
     }
-
+    //Kullanıcının sepetindeki filmleri almak.
     suspend fun getMovieCart(userName: String): MovieCartResponse {
         return api.getMovieCart(userName)
     }
-
+    //Kullanıcının sepetinden bir filmi silmek.
     suspend fun deleteMovieFromCart(cartId: Int, userName: String): ApiResponse {
         return api.deleteMovieFromCart(cartId, userName)
     }

@@ -243,6 +243,7 @@ fun MovieItem(movie: Movie, navController: NavController, viewModel: MovieViewMo
             .clickable {
                 Log.d("MovieItem", "Navigating to movieDetail/${movie.id}")
                 navController.navigate("movieDetail/${movie.id}")
+
             },
         colors = CardDefaults.cardColors(
             containerColor = Color.White // Arka plan rengini açık mavi yap

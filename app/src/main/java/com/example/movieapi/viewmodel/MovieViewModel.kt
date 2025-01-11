@@ -16,18 +16,23 @@ import kotlinx.coroutines.launch
 
 class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
 
+    //Kullanıcı adı bilgisi
     private val _userName = MutableStateFlow("")
     val userName: StateFlow<String> = _userName
 
+    // Tüm filmler
     private val _movies = MutableStateFlow<List<Movie>>(emptyList())
     val movies: StateFlow<List<Movie>> = _movies
 
+    // Sepet içeriği
     private val _cart = MutableStateFlow<List<CartItem>>(emptyList())
     val cart: StateFlow<List<CartItem>> = _cart
 
+    // Arama metni
     private val _searchQuery = MutableStateFlow("") // Arama metni
     val searchQuery: StateFlow<String> = _searchQuery
 
+    // Yönetmen filtresi
     private val _filterDirector = MutableStateFlow<String?>(null) // Yönetmen filtresi
     val filterDirector: StateFlow<String?> = _filterDirector
 
@@ -48,21 +53,24 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
         filteredList
     }.stateIn(viewModelScope, kotlinx.coroutines.flow.SharingStarted.Lazily, emptyList())
 
+    // Favori filmler
     private val _favorites = MutableStateFlow<List<Movie>>(emptyList())
     val favorites: StateFlow<List<Movie>> = _favorites
 
+    // Kullanıcı adı güncelleme
     fun updateUserName(name: String) {
         _userName.value = name
     }
-
+    // Arama metnini güncelleme
     fun updateSearchQuery(query: String) {
         _searchQuery.value = query
     }
 
+    // Yönetmen filtresini güncelleme
     fun updateFilterDirector(director: String?) {
         _filterDirector.value = director
     }
-
+    // ViewModel ilk çalıştığında filmleri getir
     init {
         fetchMovies()
     }
@@ -80,7 +88,7 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
         }
     }
 
-    // Sepetteki filmleri getir
+    // Kullanıcıya ait sepet içeriğini getir
     fun fetchCart(userName: String) {
         viewModelScope.launch {
             try {
@@ -116,7 +124,7 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
         }
     }
 
-    // Sepetten film sil
+  /*  // Sepetten film sil
     fun removeFromCart(cartId: Int, userName: String) {
         viewModelScope.launch {
             try {
@@ -126,7 +134,24 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
                 Log.e("MovieViewModel", "Error removing from cart", e)
             }
         }
-    }
+    }*/
+  fun removeAllFromCart(productName: String, userName: String) {
+      viewModelScope.launch {
+          try {
+              // Sepetteki aynı ürünlerden hepsini silmek için filtreleme
+              val itemsToRemove = _cart.value.filter { it.name == productName }
+              itemsToRemove.forEach { cartItem ->
+                  repository.deleteMovieFromCart(cartItem.cartId, userName)
+              }
+
+              // Sepeti güncelle
+              fetchCart(userName)
+          } catch (e: Exception) {
+              Log.e("MovieViewModel", "Error removing all items from cart", e)
+          }
+      }
+  }
+
 
     // Favorilere ekle veya çıkar
     fun toggleFavorite(movie: Movie) {

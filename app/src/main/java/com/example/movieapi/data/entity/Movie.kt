@@ -1,5 +1,6 @@
 package com.example.movieapi.data.entity
 
+// Film bilgilerini temsil eden veri sınıf
 data class Movie(
     val id: Int,
     val name: String,
