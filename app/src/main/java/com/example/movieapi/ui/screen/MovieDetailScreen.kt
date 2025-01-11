@@ -156,26 +156,6 @@ fun MovieDetailScreen(movieId: Int, viewModel: MovieViewModel = viewModel(), nav
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Fiyat ve Miktar Seçimi
-               /* Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = "Price: ${movie.price} ₺",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.Black
-                    )
-                    Text(
-                        text = "Total: ${movie.price * quantity} ₺",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.Black
-                    )
-                }*/
-
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Miktar Arttırma/Azaltma
@@ -212,24 +192,6 @@ fun MovieDetailScreen(movieId: Int, viewModel: MovieViewModel = viewModel(), nav
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Sepete Ekle Butonu
-               /* Button(
-                    onClick = {
-                        viewModel.addToCart(movie, userName, quantity) // Sepete ekle
-                        Toast.makeText(context, "Sepete eklendi", Toast.LENGTH_SHORT).show() // Toast göster
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6200EE)) // Renk değiştirildi
-                ) {
-                    Text(
-                        text = "Sepete Ekle",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.White
-                    )
-                }*/
-                // Fiyat, Toplam ve Sepete Ekle
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -272,8 +234,3 @@ fun MovieDetailScreen(movieId: Int, viewModel: MovieViewModel = viewModel(), nav
         }
     }
 }
-/*Text(
-text = "Hoş geldiniz, $userName!",
-style = MaterialTheme.typography.bodyLarge,
-modifier = Modifier.padding(bottom = 16.dp)
-)*/

@@ -27,31 +27,34 @@ import com.example.movieapi.viewmodel.MovieViewModel
 @Composable
 fun CartScreen(navController: NavController, viewModel: MovieViewModel = viewModel()) {
 
-   // Log.d("CartScreen", "Cart Items in UI: $cartItems")
+
 
     val context = LocalContext.current // Toast için context
- //  val userName = "ezgi" // Dinamik yapabilirsiniz
-    val userName=viewModel.userName.collectAsState().value
+ //  val userName = "ezgi"
 
+    // Kullanıcı adı, ViewModel'deki StateFlow'dan çekiliyor
+    val userName=viewModel.userName.collectAsState().value
+    // Ekran ilk yüklendiğinde sepet bilgileri getiriliyor
     LaunchedEffect(Unit) {
         viewModel.fetchCart(userName)
         Log.e("Username",userName)
     }
 
-
+    // Sepet öğeleri, ViewModel'deki StateFlow'dan çekiliyor
     val cartItems = viewModel.cart.collectAsState().value
     // Gruplandırılmış sepet (aynı ürünleri birleştirip miktar ekler)
     val groupedCartItems = cartItems.groupBy { it.name }.map { (name, items) ->
         items.first().copy(orderAmount = items.size)
     }
-
+    // Gruplandırılmış ürünlerin log kaydı
     Log.d("CartScreen", "Cart Items in UI: $cartItems")
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Sepetim") },
+                title = { Text("Sepetim") }, // Sayfa başlığı
                 navigationIcon = {
+                    // Geri gitmek için bir ok ikonu
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Geri")
                     }
@@ -64,6 +67,7 @@ fun CartScreen(navController: NavController, viewModel: MovieViewModel = viewMod
                 .fillMaxSize()
                 .padding(padding)
         ) {
+            // Sepet öğelerinin listelendiği alan
             LazyColumn(
                 modifier = Modifier
                     .weight(1f)
@@ -81,6 +85,7 @@ fun CartScreen(navController: NavController, viewModel: MovieViewModel = viewMod
                         )
                     }
                 } else {
+                    // Sepet öğelerini listele
                     items(groupedCartItems) { cartItem ->
                         CartItemRow(cartItem = cartItem) {
                             //viewModel.removeFromCart(cartItem.cartId, userName)
@@ -92,7 +97,7 @@ fun CartScreen(navController: NavController, viewModel: MovieViewModel = viewMod
                     }
                 }
             }
-
+            // Liste ile toplam fiyat alanı arasında bir çizgi
             Divider(modifier = Modifier.padding(horizontal = 16.dp))
 
             // Toplam fiyat alanı

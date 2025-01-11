@@ -30,9 +30,11 @@ fun FavoritesScreen(navController: NavController,viewModel: MovieViewModel){
 
     Log.d("ViewModelInstance", "FavoritesScreen ViewModel: $viewModel")
 
+    // Favori filmleri State olarak topluyoruz.
     val favoriteMovies = viewModel.favorites.collectAsState(emptyList()).value
     Log.d("FavoritesScreen", "Collected favorites: $favoriteMovies")
 
+    // Ana ekran düzeni
     Column(modifier = Modifier.fillMaxSize()) {
         // Başlık
         Text(
@@ -44,6 +46,7 @@ fun FavoritesScreen(navController: NavController,viewModel: MovieViewModel){
                 .padding(16.dp),
             textAlign = TextAlign.Center
         )
+        // Eğer favoriler boşsa, kullanıcıya bilgi veren bir mesaj gösteriyoruz.
         if (favoriteMovies.isEmpty()) {
             Text(
                 text = "No favorites yet.",
@@ -61,6 +64,7 @@ fun FavoritesScreen(navController: NavController,viewModel: MovieViewModel){
                             .padding(vertical = 4.dp), // Her satır arasına dikey boşluk
                         horizontalArrangement = Arrangement.SpaceBetween // Kartlar arasında eşit boşluk
                     ) {
+                        // Her filmi bir kutu içinde düzenliyoruz.
                         rowMovies.forEach { movie ->
                             Box(
                                 modifier = Modifier

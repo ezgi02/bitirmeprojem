@@ -59,6 +59,7 @@ fun CategoryListScreen(navController: NavController, viewModel: MovieViewModel) 
 
 @Composable
 fun CategoryItem(category: String, onClick: () -> Unit) {
+    // Her kategori öğesi için bir satır düzeni oluşturur
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -66,11 +67,13 @@ fun CategoryItem(category: String, onClick: () -> Unit) {
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // Kategori adını göstermek için bir metin bileşeni
         Text(
             text = category,
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.weight(1f)
         )
+        // Sağ tarafa bir ok ikonu ekler
         Icon(
             painter = painterResource(id = R.drawable.ic_arrow_right), // Sağ ok ikonu
             contentDescription = null,

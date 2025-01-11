@@ -38,9 +38,10 @@ import com.example.movieapi.viewmodel.MovieViewModel
 
 @Composable
 fun CategoryMoviesScreen(navController: NavController, category: String, viewModel: MovieViewModel) {
+    // Kategoriye özel tüm filmleri al
     val allMovies = viewModel.getMoviesByCategory(category) // Kategoriye özel tüm filmler
     var filteredMovies by remember { mutableStateOf(allMovies) } // Filtrelenmiş liste
-
+    // Dialog ve dropdown durumlarını kontrol etmek için state'ler
     var isSortDialogVisible by remember { mutableStateOf(false) }
     var isFilterDropdownVisible by remember { mutableStateOf(false) }
     var selectedDirector by remember { mutableStateOf<String?>(null) } // Seçili yönetmen
